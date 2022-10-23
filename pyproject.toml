@@ -1,3 +1,4 @@
 [tool.pytest.ini_options]
 DJANGO_SETTINGS_MODULE = "GiftcardSite.settings"
+python_files = ["LegacySite/tests.py"]
 filterwarnings = ["ignore::UserWarning",]
