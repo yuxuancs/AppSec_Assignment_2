@@ -13,7 +13,7 @@ jobs:
     strategy:
       max-parallel: 4
       matrix:
-        python-version: [3.9]
+        python-version: ['3.10']
 
     steps:
     - uses: actions/checkout@v3
@@ -31,10 +31,9 @@ jobs:
         python manage.py makemigrations
         python manage.py migrate
         sh import_dbs.sh
-        python manage.py shell -c "from LegacySite.tests import MyTest;test=MyTest();assert test.test_1() != None, 'XSS Error'"
-        python manage.py shell -c "from LegacySite.tests import MyTest;test=MyTest();assert test.test_2() != None, 'CRSF Error'"
-        python manage.py shell -c "from LegacySite.tests import MyTest;test=MyTest();assert test.test_3() != None, 'SQL Injection Error'"
-        python manage.py shell -c "from LegacySite.tests import MyTest;test=MyTest();assert test.test_4() != None, 'Command Injection Error'"
+    - name: Test with pytest
+      working-directory: ./LegacySite
+      run: python -m pytest tests.py
         
 
         
