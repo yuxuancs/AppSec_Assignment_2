@@ -1,0 +1,42 @@
+name: Django CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 4
+      matrix:
+        python-version: [3.8, 3.9, 3.10]
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v3
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    - name: Run Tests
+      run: |
+        python manage.py makemigrations LegacySite
+        python manage.py makemigrations
+        python manage.py migrate
+        sh import_dbs.sh
+        python manage.py shell -c "from LegacySite.tests import MyTest;test=MyTest();assert test.test_1() != None, 'XSS Error'"
+        python manage.py shell -c "from LegacySite.tests import MyTest;test=MyTest();assert test.test_2() != None, 'CRSF Error'"
+        python manage.py shell -c "from LegacySite.tests import MyTest;test=MyTest();assert test.test_3() != None, 'SQL Injection Error'"
+        python manage.py shell -c "from LegacySite.tests import MyTest;test=MyTest();assert test.test_4() != None, 'Command Injection Error'"
+        
+
+        
+        
+        
