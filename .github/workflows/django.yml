@@ -32,7 +32,7 @@ jobs:
 #         python manage.py migrate
 #         sh import_dbs.sh
     - name: Test with pytest
-      run: pytest .
+      run: pytest LegacySite/tests.py
         
 
         
