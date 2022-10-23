@@ -59,3 +59,5 @@ def run_test():
     assert test.test_2() != None, "CRSF Error"
     assert test.test_3() != None, "SQL Injection Error"
     assert test.test_4() != None, "Command Injection Error"
+    
+run_test()
