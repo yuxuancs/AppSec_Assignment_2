@@ -31,9 +31,9 @@ jobs:
 #         python manage.py makemigrations
 #         python manage.py migrate
 #         sh import_dbs.sh
-    - name: Test with pytest
+    - name: check for bugs
       working-directory: ./LegacySite
-      run: pytest -vv
+      run: python manage.py shell -c "from . import tests"
         
 
         
