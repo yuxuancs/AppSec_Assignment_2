@@ -1,5 +1,3 @@
 [tool.pytest.ini_options]
 DJANGO_SETTINGS_MODULE = GiftcardSite.settings
-filterwarnings = [
-    "ignore::UserWarning",
-]
+filterwarnings = ["ignore::UserWarning",]
