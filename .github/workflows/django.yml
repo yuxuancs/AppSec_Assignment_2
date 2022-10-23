@@ -31,13 +31,9 @@ jobs:
         python manage.py makemigrations
         python manage.py migrate
         sh import_dbs.sh
-        python manage.py shell 
-        from LegacySite.tests import MyTest
-        test=MyTest()
-        assert test.test_1() != None, 'XSS Error'
-        assert test.test_2() != None, 'CRSF Error'
-        assert test.test_3() != None, 'SQL Injection Error'
-        assert test.test_4() != None, 'Command Injection Error'
+    - name: Test with pytest
+      working-directory: ./LegacySite
+      run: pytest -vv
         
 
         
