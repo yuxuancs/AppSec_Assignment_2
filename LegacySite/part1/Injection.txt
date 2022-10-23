@@ -1,1 +1,0 @@
-; ls -la; echo {\"records\": [{\"signature\": \"[ insert crypto signature here ]\"}]} > tmp_file;
