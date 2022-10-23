@@ -206,7 +206,7 @@ def use_card_view(request):
         else:
             context['card_found'] = card_query_string
             try:
-                card = Card.objects.get(data=card_data)
+                card = Card.objects.get(data=card_data.encode())
                 card.used = True
             except ObjectDoesNotExist:
                 card = None
