@@ -6,6 +6,7 @@ from shlex import quote
 from . import extras,models
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'GiftcardSite.settings')
+os.environ['DJANGO_SETTINGS_MODULE'] = 'GiftcardSite.settings'
 django.setup()
 CARD_PARSER = 'giftcardreader'
 
