@@ -1,0 +1,34 @@
+1. XSS attack: In html file, gift.html and item-single.html line 60 `<p>Endorsed by {{director|safe}}!</p>` and
+	line 61 `<p>Endorsed by {{director|safe}}!</p>` respectively, contains a parameter "director" can be 
+	attacked by reflected XSS attack. In order to trigger the attack, by request the following:
+		http://127.0.0.1:8000/gift.html?director=<script>alert('XSS attack!')</script>
+		http://127.0.0.1:8000/gift.html?director=<script>alert('XSS attack!');</script>
+	In order to prevent this reflected XSS attack, by removing `|safe` from line 60 of gift.html and line 
+	61 of item-single.html. 
+
+2. CSRF attack: In order to force another user to gift a gift card to my account without their knowledge. I
+	just make a CSRF attack by forge a fake gift card html for victim to click the URL CSRF_Hacker.html.
+	Inside of CSRF_Hacker.html file, I have malicious javascript function with hidden values. Which will
+	trigger a post request. The csrf_hacker() function will be executed and triggered the attack whenever
+	the CSRF_Hacker.html is loaded. In order to prevent this attack, by implementing HTTP access control
+	Access-Control-Allow-Origin header to restrict which domains may make some requests to the server. By
+	setting allow host.
+	
+
+3. SQL injection: by altering the signature field of any new make .gftcrd file by using 
+	"1=1' UNION SELECT password FROM LegacySite_user WHERE '1=1" to retrieve all user passwords from 
+	database. In order to fixed this bug, by preventing validate user inputs, sanitize data by limiting
+	special characters, enforce prepared statements and parameterization for variable binding. By writing
+	all database queries that involved with queries or parameterization. By doing so, the database will be
+	able to distinguish between user's input and code. So, in views.py line 191 and 192,
+	`card_query = Card.objects.raw('select id from LegacySite_card where data = \'%s\'' % signature)`
+        `user_cards = Card.objects.raw('select id, count(*) as count from LegacySite_card where 
+	LegacySite_card.user_id = %s' % str(request.user.id))`
+	by removing "\'". 
+
+4. Command Injection: By injecting the following malicious code 
+	`; ls -la; echo {\"records\": [{\"signature\": \"[ insert crypto signature here ]\"}]} > tmp_file;`
+	to the use.html input box that command injection attack can be exploited. Then the system will execute
+	as linux commands. If attacker run a linux command like `rm -rf .` the catastrophic result will be
+	occured. By prevent this bug, avoid system calls and user input, using "quote" function to turn input 
+	into string, in line 58 of extras.py
