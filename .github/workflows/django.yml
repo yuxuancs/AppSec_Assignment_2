@@ -33,7 +33,8 @@ jobs:
 #         sh import_dbs.sh
     - name: Test with pytest
       working-directory: ./LegacySite
-      run: python -m pytest tests.py
+      run: |
+          python manage.py shell -m pytest tests.py
         
 
         
