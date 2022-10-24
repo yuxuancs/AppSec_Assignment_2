@@ -17,7 +17,7 @@ class MyTest(TestCase):
         super(MyTest,self).__init__()
         
     def test_1(self):
-        resp = Client.get('/gift/',{'director': "<script>alert('XSS attack!')</script>"})
+        resp = Client.get('/gift/',{'amount':'1','username':'yuxuan_2','director': "<script>alert('XSS attack!')</script>"})
         string = bytes.decode(resp.content)
         if string.__contains__("&lt;script&gt"): # check whether "<" and ">" <=> "&lt" and "&gt"
             return "XSS test passed!"
