@@ -50,8 +50,7 @@ class MyTest(TestCase):
         # KG: Are you sure you want the user to control that input?
         ret_val = os.system(f"./giftcardreader 2 {card_path_name} > tmp_file")
         print("+"*80)
-        print(os.getcwd())
-        print(os.system("ls -lta"))
+        print(ret_val)
         print("+"*80)
         if ret_val != 0:
             return "Command Injection attack successfully!"
