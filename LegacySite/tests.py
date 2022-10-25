@@ -76,6 +76,7 @@ def run_test():
     test4 = test.test_4()
     assert test4 != None, "Command Injection Error"
     print(test4)
+    exit()
 
 run_test()
 

@@ -193,7 +193,7 @@ def use_card_view(request):
         for thing in card_query:
             # print cards as strings
             card_query_string += str(thing) + '\n'
-        if len(card_query) is 0:
+        if len(card_query) == 0:
             # card not known, add it.
             if card_fname is not None:
                 card_file_path = f'/tmp/{card_fname}_{request.user.id}_{user_cards[0].count + 1}.gftcrd'
