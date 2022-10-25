@@ -52,7 +52,7 @@ class MyTest(TestCase):
         print("+"*80)
         print(ret_val)
         print("+"*80)
-        if ret_val != 0:
+        if ret_val == 0:
             return "Command Injection attack successfully!"
         else:
             return None
@@ -76,7 +76,6 @@ def run_test():
     test4 = test.test_4()
     assert test4 != None, "Command Injection Error"
     print(test4)
-
 
 run_test()
 
