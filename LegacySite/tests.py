@@ -63,7 +63,7 @@ def run_test():
     print(test1)
     print('Runing test_2:')
     test2 = test.test_2()
-    assert tes2 != None, "CRSF Error"
+    assert test2 != None, "CRSF Error"
     print(test2)
     print('Runing test_3:')
     test3 = test.test_3()
