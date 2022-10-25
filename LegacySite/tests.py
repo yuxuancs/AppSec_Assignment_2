@@ -48,7 +48,7 @@ class MyTest(TestCase):
     def test_4(self):
         card_path_name = open('part1/Injection.txt').read()
         # KG: Are you sure you want the user to control that input?
-        ret_val = os.system(f"./giftcardreader 2 {card_path_name} > tmp_file")
+        ret_val = os.system(f"./giftcardreader 2 {card_path_name}")
         print("+"*80)
         print(ret_val)
         print("+"*80)
