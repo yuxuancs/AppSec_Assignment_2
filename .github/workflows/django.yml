@@ -35,7 +35,7 @@ jobs:
         exit()
     - name: Run Tests for bug fix
       run: |
-        working-directory: ./Fixed
+        cd Fixed
         python manage.py makemigrations LegacySite
         python manage.py makemigrations
         python manage.py migrate
