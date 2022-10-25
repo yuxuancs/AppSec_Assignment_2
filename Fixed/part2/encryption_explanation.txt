@@ -1,0 +1,5 @@
+First, I would consider to use suggested cryptography library to encrypt the data in database. 
+I need to install django-cryptography library by use pip install django-cryptography in terminal. 
+After the library is available, I can simply use the library by including the following code: 
+`from django_cryptography.fields import encrypt`. After that, I can use encrypt() function to 
+encrypt data then store to the database.
