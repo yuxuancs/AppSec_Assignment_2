@@ -32,7 +32,6 @@ jobs:
         python manage.py migrate
         sh import_dbs.sh
         python manage.py shell -c "from LegacySite import tests"
-        exit()
     - name: Run Tests for bug fix
       run: |
         cd Fixed
@@ -41,7 +40,6 @@ jobs:
         python manage.py migrate
         sh import_dbs.sh
         python manage.py shell -c "from LegacySite import tests"
-        exit()
         
 
         
