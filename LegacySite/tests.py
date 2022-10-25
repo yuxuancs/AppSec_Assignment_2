@@ -22,46 +22,58 @@ class MyTest(TestCase):
 #        string = bytes.decode(resp.content)
 #        if string.__contains__("&lt;script&gt"): # check whether "<" and ">" <=> "&lt" and "&gt"
         if resp.status_code == 200:
-            return "XSS test passed!"
+            return "XSS attack successfully!"
         else:
             return None
 
     def test_2(self):
-        resp = Client(enforce_csrf_checks=True).post('/gift/1',{'amount':'1','username':'yuxuan_2'})
-        print("+"*80)
+        client = Client(enforce_csrf_checks=True)
+        resp = client.post('/gift/1',{'amount':'1','username':'yuxuan_2'})
         if resp.status_code == 200:
-            return "CRSF test passed!"
+            return "CRSF attack successfully!"
         else:
             return None
 
     def test_3(self):
-        cf_data = open('part1/SQL_Injection_steal_password.gftcrd')
+        cf_data = open('part1/SQL_Injection_steal_password.gftcrd').read()
         cf_path = f'./tmp/SQLi_test_parser.gftcrd'
-        card_data = extras.parse_card_data(cf_data.read(), cf_path)
-        cf_data.close()
+        card_data = extras.parse_card_data(cf_data, cf_path)
         signature = json.loads(card_data)['records'][0]['signature']
         card_query = models.Card.objects.raw('select id from LegacySite_card where data = %s',params=[signature])
         if len(card_query) == 0:
-            return "SQL Injection test passed!"
+            return "SQL Injection attack successfully!"
         else:
             return None
 
     def test_4(self):
-        card_path_name = open('part1/Injection.txt')
+        card_path_name = open('part1/Injection.txt').read()
         # KG: Are you sure you want the user to control that input?
-        ret_val = os.system(quote(f"./{CARD_PARSER} 2 {card_path_name} > tmp_file"))
+        ret_val = os.system(f"./giftcardreader 2 {card_path_name} > tmp_file")
         if ret_val != 0:
-            return "Command Injection passed!"
+            return "Command Injection attack successfully!"
         else:
             return None
 
 @pytest.mark.django_db
 def run_test():
     test = MyTest()
-    assert test.test_1() != None, "XSS Error"
-    assert test.test_2() != None, "CRSF Error"
-    assert test.test_3() != None, "SQL Injection Error"
-    assert test.test_4() != None, "Command Injection Error"
+    print('Runing test_1:')
+    test1 = test.test_1()
+    assert test1 != None, "XSS Error"
+    print(test1)
+    print('Runing test_2:')
+    test2 = test.test_2()
+    assert tes2 != None, "CRSF Error"
+    print(test2)
+    print('Runing test_3:')
+    test3 = test.test_3()
+    assert test3 != None, "SQL Injection Error"
+    print(test3)
+    print('Runing test_4:')
+    test4 = test.test_4()
+    assert test4 != None, "Command Injection Error"
+    print(test4)
+
 
 run_test()
 
