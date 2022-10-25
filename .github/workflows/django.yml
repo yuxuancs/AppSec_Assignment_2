@@ -32,6 +32,16 @@ jobs:
         python manage.py migrate
         sh import_dbs.sh
         python manage.py shell -c "from LegacySite import tests"
+        exit()
+    - name: Run Tests for bug fix
+      run: |
+        working-directory: ./Fixed
+        python manage.py makemigrations LegacySite
+        python manage.py makemigrations
+        python manage.py migrate
+        sh import_dbs.sh
+        python manage.py shell -c "from LegacySite import tests"
+        exit()
         
 
         
